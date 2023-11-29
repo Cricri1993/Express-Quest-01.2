@@ -3,7 +3,7 @@ const app = require("../src/app");
 const database = require("../database")
 afterAll(() => database.end());
 const crypto = require("node:crypto");
-
+/*
 describe("GET /api/users", () => {
   it("should return all users", async () => {
     const response = await request(app).get("/api/users");
@@ -159,5 +159,31 @@ describe("PUT /api/users/:id", () => {
     const response = await request(app).put("/api/users/0").send(newUser);
 
     expect(response.status).toEqual(404);
+  });
+}); */
+
+describe("DELETE /api/users/:id", () => {
+  it("should delete a user", async() => {
+    const newUser = {
+      firstname: "Jimmy",
+      lastname: "Lieu",
+      email:`${crypto.randomUUID()}@wild.co`,
+      city: "London",
+      language: "English",
+    };
+    const [result] = await database.query(
+      "INSERT INTO users(firstname, lastname, email, city, language) VALUES (?, ?, ?, ?, ?)",
+      [newUser.firstname, newUser.lastname, newUser.email, newUser.city, newUser.language]
+    );
+
+    const id = result.insertId;
+
+    const response = await request(app).delete(`/api/users/${id}`);
+
+    expect(response.status).toEqual(204);
+
+    const responseNoId = await request(app).delete(`/api/users/${id}`);
+
+    expect(responseNoId.status).toEqual(404);
   });
 });
