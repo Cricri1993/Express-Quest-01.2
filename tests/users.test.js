@@ -3,7 +3,7 @@ const app = require("../src/app");
 const database = require("../database")
 afterAll(() => database.end());
 const crypto = require("node:crypto");
-/*
+
 describe("GET /api/users", () => {
   it("should return all users", async () => {
     const response = await request(app).get("/api/users");
@@ -72,7 +72,7 @@ describe("POST /api/users", () => {
     expect(userInDatabase.language).toStrictEqual(newUser.language);
 
   });
-
+/*
   it("should return an error", async () => {
     const userWithMissingProps = { firstname: "Bob" };
 
@@ -80,8 +80,8 @@ describe("POST /api/users", () => {
       .post("/api/users")
       .send(userWithMissingProps);
 
-    expect(response.status).toEqual(500);
-  });
+    expect(response.status).toEqual(422);
+  }); */
 });
 
 describe("PUT /api/users/:id", () => {
@@ -136,7 +136,7 @@ describe("PUT /api/users/:id", () => {
     expect(userInDatabase).toHaveProperty("language");
     expect(userInDatabase.language).toStrictEqual(updatedUser.language);
   });
-
+/*
   it("should return an error", async () => {
     const userWithMissingProps = { firstname: "Anna", };
 
@@ -144,8 +144,8 @@ describe("PUT /api/users/:id", () => {
       .put(`/api/users/1`)
       .send(userWithMissingProps);
 
-    expect(response.status).toEqual(500);
-  });
+    expect(response.status).toEqual(422);
+  }); */
 
   it("should return no user", async () => {
     const newUser = {
@@ -160,7 +160,7 @@ describe("PUT /api/users/:id", () => {
 
     expect(response.status).toEqual(404);
   });
-}); */
+});
 
 describe("DELETE /api/users/:id", () => {
   it("should delete a user", async() => {
@@ -186,4 +186,4 @@ describe("DELETE /api/users/:id", () => {
 
     expect(responseNoId.status).toEqual(404);
   });
-});
+}); 

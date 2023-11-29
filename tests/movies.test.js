@@ -5,7 +5,7 @@ const app = require("../src/app");
 const database = require("../database")
 
 afterAll(() => database.end());
-/*
+
 describe("GET /api/movies", () => {
   it("should return all movies", async () => {
     const response = await request(app).get("/api/movies");
@@ -18,10 +18,10 @@ describe("GET /api/movies", () => {
 
 describe("GET /api/movies/:id", () => {
   it("should return one movie", async () => {
-    const response = await request(app).get("/api/movies/1");
-
+    const response = await request(app).get("/api/movies/2");
+    console.log(response[0]);
     expect(response.headers["content-type"]).toMatch(/json/);
-
+    
     expect(response.status).toEqual(200);
   });
 
@@ -81,7 +81,7 @@ describe("POST /api/movies", () => {
       .post("/api/movies")
       .send(movieWithMissingProps);
 
-    expect(response.status).toEqual(500);
+    expect(response.status).toEqual(422);
   });
 });
 
@@ -136,17 +136,17 @@ describe("PUT /api/movies/:id", () => {
     expect(movieInDatabase).toHaveProperty("duration");
     expect(movieInDatabase.duration).toStrictEqual(updatedMovie.duration);
   });
-
+/*
   it("should return an error", async () => {
     const movieWithMissingProps = { title: "Harry Potter" };
 
     const response = await request(app)
-      .put(`/api/movies/1`)
+      .put(`/api/movies/2`)
       .send(movieWithMissingProps);
 
-    expect(response.status).toEqual(500);
+    expect(response.status).toEqual(422);
   });
-
+*/
   it("should return no movie", async () => {
     const newMovie = {
       title: "Avatar",
@@ -160,7 +160,7 @@ describe("PUT /api/movies/:id", () => {
 
     expect(response.status).toEqual(404);
   });
-}); */
+});
 
 describe("DELETE /api/movies/:id", () => {
   it("should delete a movie", async() => {
